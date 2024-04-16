@@ -1,19 +1,23 @@
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: cloudshirt-service
+  name: cloudshirt-deployment
   labels:
     app: cloudshirt
 spec:
+  replicas: 3
   selector:
-    app: cloudshirt
-  ports:
-    - name: port1
-      protocol: TCP
-      port: 80
-      targetPort: 5200
-    - name: port2
-      protocol: TCP
-      port: 81
-      targetPort: 5106
-  type: LoadBalancer
+    matchLabels:
+      app: cloudshirt
+  template:
+    metadata:
+      labels:
+        app: cloudshirt
+    spec:
+      containers:
+      - name: cloudshirt
+        image: franko2147/cloudautomation:publicapi
+        ports: 5200
+      - name: webmvc
+        image: franko2147/cloudautomation:webmvc
+        ports: 5106
