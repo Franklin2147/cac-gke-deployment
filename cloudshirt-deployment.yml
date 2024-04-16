@@ -8,10 +8,12 @@ spec:
   selector:
     app: cloudshirt
   ports:
-    - protocol: TCP
+    - name: port1
+      protocol: TCP
       port: 80
       targetPort: 5200
-    - protocol: TCP
-      port: 80
+    - name: port2
+      protocol: TCP
+      port: 81
       targetPort: 5106
   type: LoadBalancer
